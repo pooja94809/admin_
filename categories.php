@@ -1,5 +1,37 @@
 <?php require "header.php"; ?>
 <?php require "sidebar.php"; ?>
+<?php 
+
+$siteurl = "http://localhost/training/project/admin/Products.php/";
+
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "root";
+$dbname = "project";
+
+// Create connection.
+$conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+// Check connection.
+if ($conn->connect_error) {
+die("Connection failed: " . $conn->connect_error);
+}
+global $category;
+if (isset($_POST['submit'])) {
+    $category = $_POST['dropdown'];
+    $sql = "INSERT INTO products (`Name`, `Price`, `Image`, `Category`,`Tags`,`Description`) VALUES('".$name."', '".$price."', '".$image."','".$category."', '".$value."', '".$textfield."')";
+            echo $sql;
+        }
+    if ($conn->query($sql) === true) {
+            echo "New record created successfully";
+    } else {
+        echo "not successful";
+    }
+        
+    $conn->close();
+    
+?>
+?>
         <div id="main-content"> <!-- Main Content Section with everything -->
             
             <noscript> <!-- Show a notification if the user has disabled javascript -->
@@ -13,36 +45,6 @@
             <!-- Page Head -->
             <h2>Welcome John</h2>
             <p id="page-intro">What would you like to do?</p>
-            
-            <ul class="shortcut-buttons-set">
-                
-                <li><a class="shortcut-button" href="#"><span>
-                    <img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
-                    Write an Article
-                </span></a></li>
-                
-                <li><a class="shortcut-button" href="#"><span>
-                    <img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
-                    Create a New Page
-                </span></a></li>
-                
-                <li><a class="shortcut-button" href="#"><span>
-                    <img src="resources/images/icons/image_add_48.png" alt="icon" /><br />
-                    Upload an Image
-                </span></a></li>
-                
-                <li><a class="shortcut-button" href="#"><span>
-                    <img src="resources/images/icons/clock_48.png" alt="icon" /><br />
-                    Add an Event
-                </span></a></li>
-                
-                <li><a class="shortcut-button" href="#messages" rel="modal"><span>
-                    <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
-                    Open Modal
-                </span></a></li>
-                
-            </ul><!-- End .shortcut-buttons-set -->
-            
             <div class="clear"></div> <!-- End .clear -->
             
             <div class="content-box"><!-- Start Content Box -->
@@ -231,57 +233,21 @@
                     <div class="tab-content" id="tab2">
                     
                         <form action="#" method="post">
-                            
-                            <fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-                                
                                 <p>
-                                    <label>Small form input</label>
-                                        <input class="text-input small-input" type="text" id="small-input" name="small-input" /> <span class="input-notification success png_bg">Successful message</span> <!-- Classes for input-notification: success, error, information, attention -->
-                                        <br /><small>A small description of the field</small>
-                                </p>
-                                
-                                <p>
-                                    <label>Medium form input</label>
-                                    <input class="text-input medium-input datepicker" type="text" id="medium-input" name="medium-input" /> <span class="input-notification error png_bg">Error message</span>
-                                </p>
-                                
-                                <p>
-                                    <label>Large form input</label>
-                                    <input class="text-input large-input" type="text" id="large-input" name="large-input" />
-                                </p>
-                                
-                                <p>
-                                    <label>Checkboxes</label>
-                                    <input type="checkbox" name="checkbox1" /> This is a checkbox <input type="checkbox" name="checkbox2" /> And this is another checkbox
-                                </p>
-                                
-                                <p>
-                                    <label>Radio buttons</label>
-                                    <input type="radio" name="radio1" /> This is a radio button<br />
-                                    <input type="radio" name="radio2" /> This is another radio button
-                                </p>
-                                
-                                <p>
-                                    <label>This is a drop down list</label>              
+                                    <label>Category</label>              
                                     <select name="dropdown" class="small-input">
-                                        <option value="option1">Option 1</option>
-                                        <option value="option2">Option 2</option>
-                                        <option value="option3">Option 3</option>
-                                        <option value="option4">Option 4</option>
+                                        <option >Men</option>
+                                        <option >Women</option>
+                                        <option >Kids</option>
+                                        <option >Electronics</option>
+                                        <option>Sports</option>
                                     </select> 
                                 </p>
-                                
                                 <p>
-                                    <label>Textarea with WYSIWYG</label>
-                                    <textarea class="text-input textarea wysiwyg" id="textarea" name="textfield" cols="79" rows="15"></textarea>
+                                    <input class="button" type="submit" value="Submit" name="submit" />
                                 </p>
                                 
-                                <p>
-                                    <input class="button" type="submit" value="Submit" />
-                                </p>
-                                
-                            </fieldset>
-                            
+                         
                             <div class="clear"></div><!-- End .clear -->
                             
                         </form>
